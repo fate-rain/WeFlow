@@ -4033,6 +4033,7 @@ function SettingsPage({ onClose }: SettingsPageProps = {}) {
                               type="button"
                               className={`insight-profile-status-btn ${profileButtonMeta.className}`}
                               title={profileButtonMeta.title}
+                              data-tooltip={profileButtonMeta.title}
                               disabled={profileButtonMeta.disabled}
                               onClick={() => void handleGenerateInsightProfile(session)}
                             >
@@ -4046,34 +4047,36 @@ function SettingsPage({ onClose }: SettingsPageProps = {}) {
                         <div className="insight-social-binding-cell">
                           {isPrivateSession ? (
                             <>
-                              <div className="insight-social-binding-input-wrap">
-                                <span className="binding-platform-chip">微博</span>
-                                <input
-                                  type="text"
-                                  className="insight-social-binding-input"
-                                  value={weiboDraftValue}
-                                  placeholder="填写数字 UID"
-                                  onChange={(e) => updateWeiboBindingDraft(session.username, e.target.value)}
-                                />
-                              </div>
-                              <div className="insight-social-binding-actions">
-                                <button
-                                  type="button"
-                                  className="btn btn-secondary btn-sm"
-                                  onClick={() => void handleSaveWeiboBinding(session.username, session.displayName || session.username)}
-                                  disabled={isBindingLoading || !weiboDraftValue.trim()}
-                                >
-                                  {isBindingLoading ? '绑定中...' : (weiboBinding ? '更新' : '绑定')}
-                                </button>
-                                {weiboBinding && (
+                              <div className="insight-social-binding-controls">
+                                <div className="insight-social-binding-input-wrap">
+                                  <span className="binding-platform-chip">微博</span>
+                                  <input
+                                    type="text"
+                                    className="insight-social-binding-input"
+                                    value={weiboDraftValue}
+                                    placeholder="填写数字 UID"
+                                    onChange={(e) => updateWeiboBindingDraft(session.username, e.target.value)}
+                                  />
+                                </div>
+                                <div className="insight-social-binding-actions">
                                   <button
                                     type="button"
                                     className="btn btn-secondary btn-sm"
-                                    onClick={() => void handleClearWeiboBinding(session.username)}
+                                    onClick={() => void handleSaveWeiboBinding(session.username, session.displayName || session.username)}
+                                    disabled={isBindingLoading || !weiboDraftValue.trim()}
                                   >
-                                    清除
+                                    {isBindingLoading ? '绑定中...' : (weiboBinding ? '更新' : '绑定')}
                                   </button>
-                                )}
+                                  {weiboBinding && (
+                                    <button
+                                      type="button"
+                                      className="btn btn-secondary btn-sm"
+                                      onClick={() => void handleClearWeiboBinding(session.username)}
+                                    >
+                                      清除
+                                    </button>
+                                  )}
+                                </div>
                               </div>
                               <div className="insight-social-binding-feedback">
                                 {weiboBindingError ? (
